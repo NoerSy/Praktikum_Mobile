@@ -29,7 +29,7 @@ class NotificationProvider extends ChangeNotifier {
       var client = new Client();
       var response = await client.post(url, headers: header, body: json.encode(request));
       return true;
-    } catch (e, s) {
+    } catch (e) {
       print(e);
       return false;
     }

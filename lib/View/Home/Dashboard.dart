@@ -1,10 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:modul3/Model/Notif.dart';
+import 'package:modul3/Model/Scadule.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
 import 'package:modul3/View/Home/HomePage/HomePage.dart';
 import 'package:modul3/View/Home/NotificationPage/NotificationPage.dart';
+import 'package:modul3/View/Home/SchadulePage/SchadulePage.dart';
 import 'package:modul3/View/component/AddNotification.dart';
 
 class Dashboard extends StatefulWidget {
@@ -18,21 +18,35 @@ class _Dashboard extends State<Dashboard> {
   String _token = "Waiting for token...";
   int _bottomNavBarSelectedIndex = 0;
   bool _newNotification = false;
-  List<Notif> _item = [];
+  bool _newSchedule = false;
+  List<Notif> _notif = [];
+  List<Schedule> _schadule = [];
 
-  void fungsi(Notif data) {
+  void _handlerScadule(Schedule scadule) {
+    print("schedule yes");
     setState(() {
-      _newNotification = _bottomNavBarSelectedIndex == 1 ? false : true;
-      _item.add(data);
+      _newSchedule = _bottomNavBarSelectedIndex == 1 ? false : true;
+      _schadule.add(scadule);
+    });
+  }
+
+  void _handlerNotification(Notif notif) {
+    print("notif yes");
+    setState(() {
+      _newNotification = _bottomNavBarSelectedIndex == 2 ? false : true;
+      _notif.add(notif);
     });
   }
 
   _onItemTapped(index) {
     if (index != _bottomNavBarSelectedIndex) {
-      if (index != 2) {
+      if (index != 3) {
         setState(() {
-          if (index == 1) {
+          if (index == 2) {
             _newNotification = false;
+          }
+          if(index == 1){
+            _newSchedule = false;
           }
           _bottomNavBarSelectedIndex = index;
         });
@@ -43,7 +57,10 @@ class _Dashboard extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    _navigationService.initialise(fungsi);
+    _navigationService.initialise(
+      handlerNotification: _handlerNotification,
+      handlerScadule: _handlerScadule,
+    );
     _navigationService.getToken().then((value) {
       setState(() {
         _token = value;
@@ -56,13 +73,15 @@ class _Dashboard extends State<Dashboard> {
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       HomePage(),
-      NotificationPage(item: _item),
+      ScadulePage(item: _schadule),
+      NotificationPage(item: _notif),
     ];
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            _addNotification.addNotificationPopUp(context: context, token: _token);
+          onPressed: () {
+            _addNotification.addNotificationPopUp(
+                context: context, token: _token);
             print(_token);
           },
           child: Padding(
@@ -74,16 +93,15 @@ class _Dashboard extends State<Dashboard> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text('Home'),
+              title: Text('Schedule'),
             ),
             BottomNavigationBarItem(
-              icon: _newNotification
-                  ? Icon(Icons.notifications_active,
-                  color: Colors.pink)
+              icon: _newSchedule
+                  ? Icon(Icons.schedule, color: Colors.pink)
                   : Icon(
-                Icons.notifications,
+                Icons.schedule,
               ),
-              title: _newNotification
+              title: _newSchedule
                   ? Text(
                 'Notifications',
                 style: TextStyle(color: Colors.pink),
@@ -92,8 +110,7 @@ class _Dashboard extends State<Dashboard> {
             ),
             BottomNavigationBarItem(
               icon: _newNotification
-                  ? Icon(Icons.notifications_active,
-                      color: Colors.pink)
+                  ? Icon(Icons.notifications_active, color: Colors.pink)
                   : Icon(
                       Icons.notifications,
                     ),
@@ -121,7 +138,10 @@ class _Dashboard extends State<Dashboard> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: Text("Token : ", style: TextStyle(color: Colors.white),),
+              child: Text(
+                "Token : ",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             Text(
               _token,

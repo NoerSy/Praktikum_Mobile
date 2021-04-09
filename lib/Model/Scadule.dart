@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final notif = notifFromJson(jsonString);
+//     final schedule = scheduleFromJson(jsonString);
 
 import 'dart:convert';
 
-Notif notifFromJson(String str) => Notif.fromJson(json.decode(str));
+Schedule scheduleFromJson(String str) => Schedule.fromJson(json.decode(str));
 
-String notifToJson(Notif data) => json.encode(data.toJson());
+String scheduleToJson(Schedule data) => json.encode(data.toJson());
 
-class Notif {
-  Notif({
+class Schedule {
+  Schedule({
     this.notification,
     this.data,
   });
@@ -17,7 +17,7 @@ class Notif {
   Notification notification;
   Data data;
 
-  factory Notif.fromJson(Map<String, dynamic> json) => Notif(
+  factory Schedule.fromJson(Map<String, dynamic> json) => Schedule(
     notification: Notification.fromJson(json["notification"]),
     data: Data.fromJson(json["data"]),
   );
@@ -30,25 +30,25 @@ class Notif {
 
 class Data {
   Data({
-    this.judul,
+    this.hari,
+    this.kelas,
     this.clickAction,
-    this.message,
   });
 
-  String judul;
+  String hari;
+  String kelas;
   String clickAction;
-  String message;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    judul: json["judul"],
+    hari: json["hari"],
+    kelas: json["kelas"],
     clickAction: json["click_action"],
-    message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
-    "judul": judul,
+    "hari": hari,
+    "kelas": kelas,
     "click_action": clickAction,
-    "message": message,
   };
 }
 

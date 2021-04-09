@@ -1,29 +1,24 @@
 
 import 'package:flutter/material.dart';
+import 'package:modul3/Model/Scadule.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
 
 import 'component/classPractice.dart';
 
 class ScadulePage extends StatefulWidget {
+  final List<Schedule> item;
+
+  const ScadulePage({@required this.item});
+
   @override
-  _ScadulePageState createState() => _ScadulePageState();
+  _ScadulePageState createState() => _ScadulePageState(item);
 }
 
 class _ScadulePageState extends State<ScadulePage> {
-  final List<String> days = <String>[
-    'Senin',
-    'Selasa',
-    'Rabu',
-    'Kamis',
-    'Jumat',
-    'Sabtu'
-  ];
+  List<Schedule> _schadule;
+  _ScadulePageState(this._schadule);
 
-  final List<String> kelas = <String>[
-    'Pemrograman Fungsional F',
-    'Pemrograman Dasar F'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +31,8 @@ class _ScadulePageState extends State<ScadulePage> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(12),
-        itemCount: days.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemCount: _schadule.length,
+        itemBuilder: (context, _) {
           return Container(
             margin: EdgeInsets.only(bottom: 20),
             decoration: BoxDecoration(
@@ -52,7 +47,7 @@ class _ScadulePageState extends State<ScadulePage> {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(left: 24),
                     child: Text(
-                      days[index],
+                      _schadule[_].data.hari,
                       style: TypographyStyle.caption2.merge(
                         TextStyle(
                           fontSize: 20,
