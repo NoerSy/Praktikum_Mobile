@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:modul3/Model/Kelas.dart';
 import 'package:modul3/Model/Scadule.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
@@ -8,17 +9,18 @@ import 'component/classPractice.dart';
 
 class ScadulePage extends StatefulWidget {
   final List<Schedule> item;
+  final List<Kelas> itemKelas;
 
-  const ScadulePage({@required this.item});
+  const ScadulePage({@required this.item, this.itemKelas});
 
   @override
-  _ScadulePageState createState() => _ScadulePageState(item);
+  _ScadulePageState createState() => _ScadulePageState(this.item, this.itemKelas);
 }
 
 class _ScadulePageState extends State<ScadulePage> {
-  List<Schedule> _schadule;
-  _ScadulePageState(this._schadule);
-
+  final List<Schedule> _schadule;
+  final List<Kelas> _listKelas;
+  _ScadulePageState(this._schadule, this._listKelas);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class _ScadulePageState extends State<ScadulePage> {
                   child: Column(
                     children: [
                       ClassPractice(
-                        kelas: "Pemrograman Fungsional F",
+                        kelas: _listKelas[_].nama,
                         jam: "00:00 - 00:00",
                         lab: "Lab A",
                         pc: "A25",

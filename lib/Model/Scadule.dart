@@ -30,22 +30,30 @@ class Schedule {
 
 class Data {
   Data({
+    this.tempat,
+    this.jam,
     this.hari,
     this.kelas,
     this.clickAction,
   });
 
+  String tempat;
+  String jam;
   String hari;
   String kelas;
   String clickAction;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+    tempat: json["tempat"],
+    jam: json["jam"],
     hari: json["hari"],
     kelas: json["kelas"],
     clickAction: json["click_action"],
   );
 
   Map<String, dynamic> toJson() => {
+    "tempat": tempat,
+    "jam": jam,
     "hari": hari,
     "kelas": kelas,
     "click_action": clickAction,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:modul3/Model/Kelas.dart';
 import 'package:modul3/Model/Notif.dart';
 import 'package:modul3/Model/Scadule.dart';
 
@@ -18,13 +19,11 @@ class PushNotificationService {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async{
         //print("onMessage: $message \n");
-        print(json.encode(message));
+        //print(json.encode(message));
         if (message["data"]["message"] != null) {
           handlerNotification(notifFromJson(json.encode(message)));
         } else if (message['data']['hari'] != null) {
-          Schedule myData = scheduleFromJson(json.encode(message));
-          Kelas dataKelas =
-          //handlerScadule();
+          handlerScadule( scheduleFromJson(json.encode(message)));
         }
       },
       onLaunch: (Map<String, dynamic> message) async {

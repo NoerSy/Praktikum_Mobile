@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modul3/Model/Kelas.dart';
 import 'package:modul3/Model/Notif.dart';
 import 'package:modul3/Model/Scadule.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
@@ -21,12 +22,29 @@ class _Dashboard extends State<Dashboard> {
   bool _newSchedule = false;
   List<Notif> _notif = [];
   List<Schedule> _schadule = [];
+  List<Kelas> _kelas = [];
 
   void _handlerScadule(Schedule scadule) {
     print("schedule yes");
+    _newSchedule = _bottomNavBarSelectedIndex == 1 ? false : true;
+    for (Schedule temp in _schadule) {
+      if (scadule.data.hari == temp.data.hari) {
+        setState(() {
+          _kelas.add(Kelas(
+            nama: scadule.data.hari,
+            tempat: scadule.data.tempat,
+            jam: scadule.data.jam,
+          ));
+        });
+      }
+    }
     setState(() {
-      _newSchedule = _bottomNavBarSelectedIndex == 1 ? false : true;
       _schadule.add(scadule);
+      _kelas.add(Kelas(
+        nama: scadule.data.hari,
+        tempat: scadule.data.tempat,
+        jam: scadule.data.jam,
+      ));
     });
   }
 
@@ -45,7 +63,7 @@ class _Dashboard extends State<Dashboard> {
           if (index == 2) {
             _newNotification = false;
           }
-          if(index == 1){
+          if (index == 1) {
             _newSchedule = false;
           }
           _bottomNavBarSelectedIndex = index;
@@ -73,7 +91,7 @@ class _Dashboard extends State<Dashboard> {
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       HomePage(),
-      ScadulePage(item: _schadule),
+      ScadulePage(item: _schadule, itemKelas: _kelas,),
       NotificationPage(item: _notif),
     ];
 
@@ -99,13 +117,13 @@ class _Dashboard extends State<Dashboard> {
               icon: _newSchedule
                   ? Icon(Icons.schedule, color: Colors.pink)
                   : Icon(
-                Icons.schedule,
-              ),
+                      Icons.schedule,
+                    ),
               title: _newSchedule
                   ? Text(
-                'Notifications',
-                style: TextStyle(color: Colors.pink),
-              )
+                      'Notifications',
+                      style: TextStyle(color: Colors.pink),
+                    )
                   : Text('Notifications'),
             ),
             BottomNavigationBarItem(
