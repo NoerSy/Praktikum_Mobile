@@ -4,7 +4,7 @@ import 'package:modul3/Provider/NotificationProvider.dart';
 class AddNotification {
   final TextEditingController _judul = new TextEditingController();
   final TextEditingController _message = new TextEditingController();
-  void addNotificationPopUp(context) {
+  void addNotificationPopUp({context, token}) {
     showDialog(
         context: context,
         builder: (context) {
@@ -28,8 +28,7 @@ class AddNotification {
                       color: Colors.white38,
                       child: TextButton(
                         onPressed: () {
-                          NotificationProvider.sendFcmMessage(
-                              _judul.text, _message.text);
+                          NotificationProvider.sendFcmMessage(_judul.text, _message.text, token: token);
                           Navigator.of(context).pop();
                         },
                         child: Padding(

@@ -60,14 +60,10 @@ class _Dashboard extends State<Dashboard> {
     ];
 
     return Scaffold(
-        appBar: AppBar(
-          elevation: 2,
-          backgroundColor: Colors.black54,
-          bottom: PreferredSize(child: TokenPage(), preferredSize: Size(0, 55)),
-        ),
         floatingActionButton: FloatingActionButton(
           onPressed: (){
-            _addNotification.addNotificationPopUp(context);
+            _addNotification.addNotificationPopUp(context: context, token: _token);
+            print(_token);
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -79,6 +75,20 @@ class _Dashboard extends State<Dashboard> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: _newNotification
+                  ? Icon(Icons.notifications_active,
+                  color: Colors.pink)
+                  : Icon(
+                Icons.notifications,
+              ),
+              title: _newNotification
+                  ? Text(
+                'Notifications',
+                style: TextStyle(color: Colors.pink),
+              )
+                  : Text('Notifications'),
             ),
             BottomNavigationBarItem(
               icon: _newNotification
