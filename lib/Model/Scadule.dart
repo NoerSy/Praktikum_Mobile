@@ -32,6 +32,7 @@ class Data {
   Data({
     this.tempat,
     this.jam,
+    this.lab,
     this.hari,
     this.kelas,
     this.clickAction,
@@ -39,6 +40,7 @@ class Data {
 
   String tempat;
   String jam;
+  String lab;
   String hari;
   String kelas;
   String clickAction;
@@ -46,6 +48,7 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     tempat: json["tempat"],
     jam: json["jam"],
+    lab: json["lab"],
     hari: json["hari"],
     kelas: json["kelas"],
     clickAction: json["click_action"],
@@ -54,6 +57,7 @@ class Data {
   Map<String, dynamic> toJson() => {
     "tempat": tempat,
     "jam": jam,
+    "lab": lab,
     "hari": hari,
     "kelas": kelas,
     "click_action": clickAction,

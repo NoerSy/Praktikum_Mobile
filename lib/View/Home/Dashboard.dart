@@ -21,31 +21,33 @@ class _Dashboard extends State<Dashboard> {
   bool _newNotification = false;
   bool _newSchedule = false;
   List<Notif> _notif = [];
-  List<Schedule> _schadule = [];
-  List<Kelas> _kelas = [];
+  List<Kelas> _schadule = [];
+  List<DataKelas> _itemKelas = [];
 
-  void _handlerScadule(Schedule scadule) {
-    print("schedule yes");
+  void _handlerScadule(Schedule item) {
+    print("schedule yes : " + item.toJson().toString());
+    bool hariSama = false;
+    int cout = 0;
     _newSchedule = _bottomNavBarSelectedIndex == 1 ? false : true;
-    for (Schedule temp in _schadule) {
-      if (scadule.data.hari == temp.data.hari) {
+    for (Kelas temp in _schadule) {
+      if (item.data.hari == temp.schedule) {
         setState(() {
-          _kelas.add(Kelas(
-            nama: scadule.data.hari,
-            tempat: scadule.data.tempat,
-            jam: scadule.data.jam,
-          ));
+          hariSama = true;
+          _itemKelas = _schadule[cout].data;
+          _itemKelas.add(DataKelas(nama: item.data.hari, lab: item.data.lab, tempat: item.data.tempat, jam: item.data.jam));
+          _schadule.insert(cout, Kelas(schedule: item.data.hari, data: _itemKelas));
+          cout++;
         });
       }
     }
-    setState(() {
-      _schadule.add(scadule);
-      _kelas.add(Kelas(
-        nama: scadule.data.hari,
-        tempat: scadule.data.tempat,
-        jam: scadule.data.jam,
-      ));
-    });
+    if(!hariSama){
+      setState(() {
+        hariSama = false;
+        _itemKelas = [];
+        _itemKelas.add(DataKelas(nama: item.data.kelas, lab: item.data.lab, tempat: item.data.tempat, jam: item.data.jam));
+        _schadule.add(Kelas(schedule: item.data.hari, data: _itemKelas));
+      });
+    }
   }
 
   void _handlerNotification(Notif notif) {
@@ -91,7 +93,7 @@ class _Dashboard extends State<Dashboard> {
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       HomePage(),
-      ScadulePage(item: _schadule, itemKelas: _kelas,),
+      ScadulePage(item: _schadule),
       NotificationPage(item: _notif),
     ];
 

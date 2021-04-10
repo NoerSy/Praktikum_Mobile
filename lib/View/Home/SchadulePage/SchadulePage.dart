@@ -8,19 +8,17 @@ import 'package:modul3/thame/TypographyStyle.dart';
 import 'component/classPractice.dart';
 
 class ScadulePage extends StatefulWidget {
-  final List<Schedule> item;
-  final List<Kelas> itemKelas;
+  final List<Kelas> item;
 
-  const ScadulePage({@required this.item, this.itemKelas});
+  const ScadulePage({@required this.item});
 
   @override
-  _ScadulePageState createState() => _ScadulePageState(this.item, this.itemKelas);
+  _ScadulePageState createState() => _ScadulePageState(this.item);
 }
 
 class _ScadulePageState extends State<ScadulePage> {
-  final List<Schedule> _schadule;
-  final List<Kelas> _listKelas;
-  _ScadulePageState(this._schadule, this._listKelas);
+  final List<Kelas> _schadule;
+  _ScadulePageState(this._schadule);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +47,7 @@ class _ScadulePageState extends State<ScadulePage> {
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(left: 24),
                     child: Text(
-                      _schadule[_].data.hari,
+                      _schadule[_].schedule,
                       style: TypographyStyle.caption2.merge(
                         TextStyle(
                           fontSize: 20,
@@ -68,7 +66,7 @@ class _ScadulePageState extends State<ScadulePage> {
                       bottomRight: Radius.circular(10),
                     ),
                   ),
-                  child: Column(
+                  child: /*Column(
                     children: [
                       ClassPractice(
                         kelas: _listKelas[_].nama,
@@ -89,21 +87,21 @@ class _ScadulePageState extends State<ScadulePage> {
                         pc: "A25",
                       ),
                     ],
-                  ),
+                  ),*/
 
-                  /*ListView.builder(
+                  ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: kelas.length,
+                    itemCount: _schadule[_].data.length,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       return ClassPractice(
-                        kelas: kelas[index],
-                        jam: "00:00 - 00:00",
-                        lab: "Lab A",
-                        pc: "A25",
+                        kelas: _schadule[_].data[index].nama,
+                        jam: _schadule[_].data[index].jam,
+                        lab: _schadule[_].data[index].lab,
+                        pc: _schadule[_].data[index].tempat,
                       );
                     },
-                  ),*/
+                  ),
                 )
               ],
             ),
