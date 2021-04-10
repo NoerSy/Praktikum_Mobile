@@ -1,12 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 
 class HomePage extends StatefulWidget {
+  final String token;
+
+  const HomePage({this.token});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(this.token);
 }
 
 class _HomePageState extends State<HomePage> {
+  final String _token;
+
+  _HomePageState(this._token);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +65,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(top: 5),
               child: Card(
                   child: Container(
-                      height: 150, child: Center(child: Text("Text")))),
+                    padding: const EdgeInsets.all(12),
+                      height: 150, child: Center(child: Text(_token)))),
             ),
           ],
         ),

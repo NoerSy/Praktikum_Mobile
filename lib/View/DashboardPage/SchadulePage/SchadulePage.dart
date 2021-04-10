@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:modul3/Model/Kelas.dart';
-import 'package:modul3/Model/Scadule.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
 
@@ -89,7 +88,7 @@ class _ScadulePageState extends State<ScadulePage> {
                     ],
                   ),*/
 
-                  ListView.builder(
+                  ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: _schadule[_].data.length,
                     shrinkWrap: true,
@@ -100,6 +99,9 @@ class _ScadulePageState extends State<ScadulePage> {
                         lab: _schadule[_].data[index].lab,
                         pc: _schadule[_].data[index].tempat,
                       );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Divider();
                     },
                   ),
                 )

@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'View/Home/Dashboard.dart';
+import 'package:modul3/View/DashboardPage/DashboardPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Dashboard(),
+      home: DashboardPage(),
     );
   }
 }

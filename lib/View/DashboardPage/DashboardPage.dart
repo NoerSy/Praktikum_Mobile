@@ -3,17 +3,18 @@ import 'package:modul3/Model/Kelas.dart';
 import 'package:modul3/Model/Notif.dart';
 import 'package:modul3/Model/Scadule.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
-import 'package:modul3/View/Home/HomePage/HomePage.dart';
-import 'package:modul3/View/Home/NotificationPage/NotificationPage.dart';
-import 'package:modul3/View/Home/SchadulePage/SchadulePage.dart';
 import 'package:modul3/View/component/AddNotification.dart';
 
-class Dashboard extends StatefulWidget {
+import 'HomePage/HomePage.dart';
+import 'NotificationPage/NotificationPage.dart';
+import 'SchadulePage/SchadulePage.dart';
+
+class DashboardPage extends StatefulWidget {
   @override
   _Dashboard createState() => _Dashboard();
 }
 
-class _Dashboard extends State<Dashboard> {
+class _Dashboard extends State<DashboardPage> {
   final PushNotificationService _navigationService = PushNotificationService();
   final AddNotification _addNotification = new AddNotification();
   String _token = "Waiting for token...";
@@ -23,31 +24,32 @@ class _Dashboard extends State<Dashboard> {
   List<Notif> _notif = [];
   List<Kelas> _schadule = [];
   List<DataKelas> _itemKelas = [];
+  List<String> _list = [];
 
   void _handlerScadule(Schedule item) {
     print("schedule yes : " + item.toJson().toString());
-    bool hariSama = false;
-    int cout = 0;
+    int index = _list.indexWhere((value) => value.contains(item.data.hari));
     _newSchedule = _bottomNavBarSelectedIndex == 1 ? false : true;
-    for (Kelas temp in _schadule) {
-      if (item.data.hari == temp.schedule) {
-        setState(() {
-          hariSama = true;
-          _itemKelas = _schadule[cout].data;
-          _itemKelas.add(DataKelas(nama: item.data.hari, lab: item.data.lab, tempat: item.data.tempat, jam: item.data.jam));
-          _schadule.insert(cout, Kelas(schedule: item.data.hari, data: _itemKelas));
-          cout++;
-        });
-      }
-    }
-    if(!hariSama){
-      setState(() {
-        hariSama = false;
+    setState(() {
+      if (index >= 0) {
+        _itemKelas = _schadule[index].data;
+        _itemKelas.add(DataKelas(
+          nama: item.data.kelas,
+          lab: item.data.lab,
+          tempat: item.data.tempat,
+          jam: item.data.jam,
+        ));
+      } else {
         _itemKelas = [];
-        _itemKelas.add(DataKelas(nama: item.data.kelas, lab: item.data.lab, tempat: item.data.tempat, jam: item.data.jam));
+        _itemKelas.add(DataKelas(
+            nama: item.data.kelas,
+            lab: item.data.lab,
+            tempat: item.data.tempat,
+            jam: item.data.jam));
         _schadule.add(Kelas(schedule: item.data.hari, data: _itemKelas));
-      });
-    }
+        _list.add(item.data.hari);
+      }
+    });
   }
 
   void _handlerNotification(Notif notif) {
@@ -92,7 +94,9 @@ class _Dashboard extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
-      HomePage(),
+      HomePage(
+        token: _token,
+      ),
       ScadulePage(item: _schadule),
       NotificationPage(item: _notif),
     ];
@@ -123,10 +127,10 @@ class _Dashboard extends State<Dashboard> {
                     ),
               title: _newSchedule
                   ? Text(
-                      'Notifications',
+                      'Schedule',
                       style: TextStyle(color: Colors.pink),
                     )
-                  : Text('Notifications'),
+                  : Text('Schedule'),
             ),
             BottomNavigationBarItem(
               icon: _newNotification

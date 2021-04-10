@@ -26,7 +26,7 @@ class _NotificationPageState extends State<NotificationPage> {
         elevation: 0,
       ),
       body: Container(
-        padding: const EdgeInsets.only(top: 2),
+        padding: const EdgeInsets.only(top: 8),
         child: ListView.builder(
           itemCount: _item.length,
           itemBuilder: (context, _) {
