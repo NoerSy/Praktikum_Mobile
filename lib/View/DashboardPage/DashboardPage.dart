@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modul3/Model/Kelas.dart';
 import 'package:modul3/Model/Notif.dart';
 import 'package:modul3/Model/Scadule.dart';
+import 'package:modul3/Model/jadwalKelas.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
 import 'package:modul3/View/component/AddNotification.dart';
 
@@ -117,7 +118,7 @@ class _Dashboard extends State<DashboardPage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text('Schedule'),
+              title: Text('Home'),
             ),
             BottomNavigationBarItem(
               icon: _newSchedule

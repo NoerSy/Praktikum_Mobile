@@ -1,11 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:modul3/Model/Notif.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 
 class NotificationPage extends StatefulWidget {
   final List<Notif> item;
+
   NotificationPage({@required this.item});
 
   @override
@@ -14,6 +13,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   List<Notif> _item;
+
   _NotificationPageState(this._item);
 
   @override
@@ -23,7 +23,7 @@ class _NotificationPageState extends State<NotificationPage> {
       appBar: AppBar(
         backgroundColor: PaletteColor.primary,
         title: Text("Notification"),
-        elevation: 0,
+        elevation: 2,
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 8),
@@ -34,6 +34,22 @@ class _NotificationPageState extends State<NotificationPage> {
               padding: const EdgeInsets.only(left: 8, right: 8, bottom: 2),
               child: Card(
                 child: ListTile(
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: TextButton(
+                              onPressed: () {
+                                //_item.removeAt(_);
+                                print(_item[_].data.message);
+                                Navigator.of(context).pop();
+                              },
+                              child: Text("Delete"),
+                            ),
+                          );
+                        });
+                  },
                   title: Text(_item[_].data.judul),
                   subtitle: Text(_item[_].data.message),
                 ),

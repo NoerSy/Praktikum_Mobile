@@ -65,29 +65,7 @@ class _ScadulePageState extends State<ScadulePage> {
                       bottomRight: Radius.circular(10),
                     ),
                   ),
-                  child: /*Column(
-                    children: [
-                      ClassPractice(
-                        kelas: _listKelas[_].nama,
-                        jam: "00:00 - 00:00",
-                        lab: "Lab A",
-                        pc: "A25",
-                      ),
-                      Divider(
-                        height: 2,
-                        indent: 4,
-                        endIndent: 4,
-                        color: PaletteColor.grey60,
-                      ),
-                      ClassPractice(
-                        kelas: "Pemrograman Dasar F",
-                        jam: "00:00 - 00:00",
-                        lab: "Lab A",
-                        pc: "A25",
-                      ),
-                    ],
-                  ),*/
-
+                  child:
                   ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: _schadule[_].data.length,
