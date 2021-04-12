@@ -41,9 +41,11 @@ class _NotificationPageState extends State<NotificationPage> {
                           return AlertDialog(
                             content: TextButton(
                               onPressed: () {
-                                //_item.removeAt(_);
+                                setState(() {
+                                  _item.removeAt(_);
+                                  Navigator.of(context).pop();
+                                });
                                 print(_item[_].data.message);
-                                Navigator.of(context).pop();
                               },
                               child: Text("Delete"),
                             ),
