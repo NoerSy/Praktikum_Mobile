@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:modul3/Model/Kelas.dart';
 import 'package:modul3/Model/Notif.dart';
 import 'package:modul3/Model/Scadule.dart';
-import 'package:modul3/Model/jadwalKelas.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
 import 'package:modul3/View/component/AddNotification.dart';
 
@@ -11,13 +10,18 @@ import 'NotificationPage/NotificationPage.dart';
 import 'SchadulePage/SchadulePage.dart';
 
 class DashboardPage extends StatefulWidget {
+  final String username;
+
+  const DashboardPage({@required this.username});
+
   @override
-  _Dashboard createState() => _Dashboard();
+  _Dashboard createState() => _Dashboard(this.username);
 }
 
 class _Dashboard extends State<DashboardPage> {
   final PushNotificationService _navigationService = PushNotificationService();
   final AddNotification _addNotification = new AddNotification();
+  final username;
   String _token = "Waiting for token...";
   int _bottomNavBarSelectedIndex = 0;
   bool _newNotification = false;
@@ -27,55 +31,7 @@ class _Dashboard extends State<DashboardPage> {
   List<DataKelas> _itemKelas = [];
   List<String> _list = [];
 
-  void _handlerScadule(Schedule item) {
-    print("schedule yes : " + item.toJson().toString());
-    int index = _list.indexWhere((value) => value.contains(item.data.hari));
-    _newSchedule = _bottomNavBarSelectedIndex == 1 ? false : true;
-    setState(() {
-      if (index >= 0) {
-        _itemKelas = _schadule[index].data;
-        _itemKelas.add(DataKelas(
-          nama: item.data.kelas,
-          lab: item.data.lab,
-          tempat: item.data.tempat,
-          jam: item.data.jam,
-        ));
-      } else {
-        _itemKelas = [];
-        _itemKelas.add(DataKelas(
-            nama: item.data.kelas,
-            lab: item.data.lab,
-            tempat: item.data.tempat,
-            jam: item.data.jam));
-        _schadule.add(Kelas(schedule: item.data.hari, data: _itemKelas));
-        _list.add(item.data.hari);
-      }
-    });
-  }
-
-  void _handlerNotification(Notif notif) {
-    print("notif yes");
-    setState(() {
-      _newNotification = _bottomNavBarSelectedIndex == 2 ? false : true;
-      _notif.add(notif);
-    });
-  }
-
-  _onItemTapped(index) {
-    if (index != _bottomNavBarSelectedIndex) {
-      if (index != 3) {
-        setState(() {
-          if (index == 2) {
-            _newNotification = false;
-          }
-          if (index == 1) {
-            _newSchedule = false;
-          }
-          _bottomNavBarSelectedIndex = index;
-        });
-      }
-    }
-  }
+  _Dashboard(this.username);
 
   @override
   void initState() {
@@ -97,6 +53,7 @@ class _Dashboard extends State<DashboardPage> {
     final List<Widget> _children = [
       HomePage(
         token: _token,
+        nama: this.username,
       ),
       ScadulePage(item: _schadule),
       NotificationPage(item: _notif),
@@ -152,6 +109,56 @@ class _Dashboard extends State<DashboardPage> {
           onTap: _onItemTapped,
         ),
         body: _children[_bottomNavBarSelectedIndex]);
+  }
+
+  void _handlerScadule(Schedule item) {
+    print("schedule yes : " + item.toJson().toString());
+    int index = _list.indexWhere((value) => value.contains(item.data.hari));
+    _newSchedule = _bottomNavBarSelectedIndex == 1 ? false : true;
+    setState(() {
+      if (index >= 0) {
+        _itemKelas = _schadule[index].data;
+        _itemKelas.add(DataKelas(
+          nama: item.data.kelas,
+          lab: item.data.lab,
+          tempat: item.data.tempat,
+          jam: item.data.jam,
+        ));
+      } else {
+        _itemKelas = [];
+        _itemKelas.add(DataKelas(
+            nama: item.data.kelas,
+            lab: item.data.lab,
+            tempat: item.data.tempat,
+            jam: item.data.jam));
+        _schadule.add(Kelas(schedule: item.data.hari, data: _itemKelas));
+        _list.add(item.data.hari);
+      }
+    });
+  }
+
+  void _handlerNotification(Notif notif) {
+    print("notif yes");
+    setState(() {
+      _newNotification = _bottomNavBarSelectedIndex == 2 ? false : true;
+      _notif.add(notif);
+    });
+  }
+
+  _onItemTapped(index) {
+    if (index != _bottomNavBarSelectedIndex) {
+      if (index != 3) {
+        setState(() {
+          if (index == 2) {
+            _newNotification = false;
+          }
+          if (index == 1) {
+            _newSchedule = false;
+          }
+          _bottomNavBarSelectedIndex = index;
+        });
+      }
+    }
   }
 
   Widget TokenPage() {

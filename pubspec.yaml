@@ -27,6 +27,8 @@ dependencies:
   get_it: ^6.0.0
   http: ^0.13.1
   charts_flutter: ^0.10.0
+  flutter_spinkit: ^4.1.2
+  shared_preferences: ^0.5.12+4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -63,16 +65,16 @@ flutter:
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
-  fonts:
-    - family: Mulish
-      fonts:
-        - asset: assets\fonts\Mulish-Regular.ttf
-        - asset: assets\fonts\Mulish-Medium.ttf
-          weight: 500
-        - asset: assets\fonts\Mulish-SemiBold.ttf
-          weight: 600
-        - asset: assets\fonts\Mulish-Bold.ttf
-          weight: 700
+  # fonts:
+  #   - family: Mulish
+  #     fonts:
+  #       - asset: assets\fonts\Mulish-Regular.ttf
+  #       - asset: assets\fonts\Mulish-Medium.ttf
+  #         weight: 500
+  #       - asset: assets\fonts\Mulish-SemiBold.ttf
+  #         weight: 600
+  #       - asset: assets\fonts\Mulish-Bold.ttf
+  #         weight: 700
   # example:
   # fonts:
   #   - family: Schyler
