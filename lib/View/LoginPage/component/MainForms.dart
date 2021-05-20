@@ -32,7 +32,7 @@ class _MainFormsState extends State<MainForms> {
           Container(
             alignment: Alignment.bottomLeft,
             child: Text(
-              "NIM",
+              "Username",
               style: TypographyStyle.mini.merge(
                 TextStyle(
                   color: PaletteColor.grey60,
@@ -53,7 +53,7 @@ class _MainFormsState extends State<MainForms> {
                 top: 8,
                 bottom: 8,
               ),
-              hintText: "Enter NIM",
+              hintText: "Enter Username",
               hintStyle: TypographyStyle.paragraph.merge(
                 TextStyle(
                   color: PaletteColor.grey60,

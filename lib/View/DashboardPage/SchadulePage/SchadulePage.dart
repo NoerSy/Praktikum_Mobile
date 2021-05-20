@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:modul3/Model/Kelas.dart';
+import 'package:modul3/Model/KelasModel/Kelas.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
 

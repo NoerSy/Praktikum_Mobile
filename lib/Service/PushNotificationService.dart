@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:modul3/Model/Notif.dart';
-import 'package:modul3/Model/Scadule.dart';
+import 'package:modul3/Model/KelasModel/Notif.dart';
+import 'package:modul3/Model/KelasModel/Scadule.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();

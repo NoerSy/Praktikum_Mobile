@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modul3/View/DashboardPage/DashboardPage.dart';
 import 'package:modul3/View/LoginPage/LoginPage.dart';
+import 'package:modul3/View/component/indecatorLoad.dart';
+import 'package:modul3/config/GlobalKeySharedPref.dart';
 import 'package:modul3/thame/PaletteColor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenPage extends StatefulWidget {
   @override
@@ -18,17 +20,19 @@ class _SplashScreenState extends State<SplashScreenPage> {
   }
 
   navigationPage() async {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => LoginPage(),
-      ),
-    );
+    bool temp = await loadPrefFungsion();
+    if (!temp)
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
+      );
   }
 
   @override
   void initState() {
-    super.initState();
     startTime();
+    super.initState();
   }
 
   @override
@@ -41,8 +45,8 @@ class _SplashScreenState extends State<SplashScreenPage> {
           Container(
             margin: const EdgeInsets.only(top: 100),
             alignment: Alignment.center,
-            child: Image.network(
-              "https://img.icons8.com/ultraviolet/100/000000/calculator.png",
+            child: Image.asset(
+              "assets/imge/icon.png",
               height: 200,
             ),
           ),
@@ -54,11 +58,22 @@ class _SplashScreenState extends State<SplashScreenPage> {
       ),
     );
   }
-}
 
-Widget indicatorLoad() {
-  return SpinKitFoldingCube(
-    size: 45,
-    color: PaletteColor.primary,
-  );
+  loadPrefFungsion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool temp = (prefs.getBool(GlobalKeySharedPref.keyPrefIsLogin) != null)
+        ? prefs.getBool(GlobalKeySharedPref.keyPrefIsLogin)
+        : false;
+    if (temp) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => DashboardPage(
+            fullname: prefs.getString(GlobalKeySharedPref.keyPrefFullname),
+            username: prefs.getString(GlobalKeySharedPref.keyPrefUsername),
+          ),
+        ),
+      );
+    }
+    return temp;
+  }
 }

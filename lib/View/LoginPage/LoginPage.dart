@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modul3/Data/dataAssisten.dart';
 import 'package:modul3/View/DashboardPage/DashboardPage.dart';
-import 'package:modul3/View/SplashScreenPage/SplashScreenPage.dart';
+import 'package:modul3/View/component/indecatorLoad.dart';
 import 'package:modul3/config/GlobalKeySharedPref.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
@@ -16,15 +16,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _nimFilter = new TextEditingController();
-  final TextEditingController _passwordFilter = new TextEditingController();
+  final TextEditingController _nimController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
   bool isLoading = false;
-
-  @override
-  initState() {
-    loadPrefFungsion();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +44,14 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Container(
                         alignment: Alignment.center,
-                        child: Image.network(
-                          'https://img.icons8.com/ultraviolet/100/000000/calculator.png',
+                        child: Image.asset(
+                          'assets/imge/icon.png',
                           width: 130,
                         ),
                       ),
                       MainForms(
-                        nimFilter: _nimFilter,
-                        passwordFilter: _passwordFilter,
+                        nimFilter: _nimController,
+                        passwordFilter: _passwordController,
                       ),
                       Container(
                         alignment: Alignment.topRight,
@@ -83,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          new Align(
+          Align(
             child: loadingIndicator,
             alignment: FractionalOffset.center,
           ),
@@ -92,25 +86,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  loadPrefFungsion() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool temp = prefs.getBool(GlobalKeySharedPref.keyPrefIsLogin);
-    if (temp) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => DashboardPage(
-            username: "tes",
-          ),
-        ),
-      );
-    }
-  }
-
-  savePrefFungsion() async {
+  savePrefFungsion(String nama) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(GlobalKeySharedPref.keyPrefIsLogin, true);
-    prefs.setString(GlobalKeySharedPref.keyPrefUsername, _nimFilter.text);
-    prefs.setString(GlobalKeySharedPref.keyPrefFullname, "tes");
+    prefs.setString(GlobalKeySharedPref.keyPrefUsername, _nimController.text);
+    prefs.setString(GlobalKeySharedPref.keyPrefFullname, nama);
   }
 
   void onPressedFunction() async {
@@ -123,30 +103,47 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     bool isLogin = false;
+
+    // for(Map temp in dataAssisten){
+    //   if(temp["UserName"] == _nimController.text && temp["PassWord"] == _passwordController.text){
+    //     Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(
+    //         builder: (context) => DashboardPage(
+    //           fullname: temp["FullName"],
+    //           username: temp["UserName"],
+    //         ),
+    //       ),
+    //     );
+    //     savePrefFungsion(temp["FullName"]);
+    //   }
+    // }
+
     dataAssisten.forEach((element) {
-      if (_nimFilter.text == element["UserName"] &&
-          _passwordFilter.text == element["PassWord"]) {
+      if (_nimController.text == element["UserName"] &&
+          _passwordController.text == element["PassWord"]) {
         isLogin = true;
         print(element);
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DashboardPage(
-              username: element["FullName"],
+              fullname: element["FullName"],
+              username: element["UserName"],
             ),
           ),
         );
+        savePrefFungsion(element["FullName"]);
       }
     });
-    savePrefFungsion();
 
-    if(!isLogin)
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text("Username or Password is Wrong"),
-        );
-      },
-    );
+    if (!isLogin)
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text("Username or Password is Wrong"),
+          );
+        },
+      );
   }
 }

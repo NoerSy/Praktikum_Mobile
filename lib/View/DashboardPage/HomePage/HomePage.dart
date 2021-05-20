@@ -7,21 +7,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HomePage extends StatefulWidget {
   final String token;
   final String nama;
+  final String username;
 
-  const HomePage({this.token, this.nama});
+  const HomePage({this.token, this.nama, this.username});
 
   @override
-  _HomePageState createState() => _HomePageState(this.token, this.nama);
+  _HomePageState createState() =>
+      _HomePageState(this.token, this.nama, this.username);
 }
 
 class _HomePageState extends State<HomePage> {
   final String _token;
   final String name;
+  final String username;
 
-  _HomePageState(this._token, this.name);
+  _HomePageState(this._token, this.name, this.username);
 
   clearPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool("isLogined", false);
     await preferences.clear();
   }
 
@@ -31,11 +35,19 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: PaletteColor.primarybg2,
       appBar: AppBar(
         backgroundColor: PaletteColor.primary,
-        title: Text("Hallo! " + name),
+        title: Text("Home Page"),
         elevation: 0,
         actions: [
-          TextButton(
-              onPressed: () {
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButton(
+              items: [
+                DropdownMenuItem(
+                  value: "Logout",
+                  child: Text("Logout"),
+                ),
+              ],
+              onChanged: (_) {
                 clearPref();
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
@@ -43,10 +55,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              child: Icon(
+              icon: Icon(
                 Icons.logout,
                 color: Colors.white,
-              ))
+              ),
+            ),
+          ),
+          SizedBox(width: 8)
         ],
       ),
       body: Container(
@@ -54,6 +69,32 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           physics: NeverScrollableScrollPhysics(),
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Card(
+                  child: Container(
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      child: Text(
+                        username,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      child: Text(
+                        name,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+            ),
             GridView(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -84,14 +125,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Card(
-                  child: Container(
-                      padding: const EdgeInsets.all(12),
-                      height: 150,
-                      child: Center(child: Text(_token)))),
             ),
           ],
         ),

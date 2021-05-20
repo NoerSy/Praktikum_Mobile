@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modul3/View/DashboardPage/DashboardPage.dart';
 import 'package:modul3/View/SplashScreenPage/SplashScreenPage.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreenPage(),
+      home: DashboardPage(username: "username", fullname: ""),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:modul3/Model/Kelas.dart';
-import 'package:modul3/Model/Notif.dart';
-import 'package:modul3/Model/Scadule.dart';
+import 'package:modul3/Model/KelasModel/Kelas.dart';
+import 'package:modul3/Model/KelasModel/Notif.dart';
+import 'package:modul3/Model/KelasModel/Scadule.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
 import 'package:modul3/View/component/AddNotification.dart';
 
@@ -11,17 +11,19 @@ import 'SchadulePage/SchadulePage.dart';
 
 class DashboardPage extends StatefulWidget {
   final String username;
+  final String fullname;
 
-  const DashboardPage({@required this.username});
+  const DashboardPage({@required this.username, this.fullname});
 
   @override
-  _Dashboard createState() => _Dashboard(this.username);
+  _Dashboard createState() => _Dashboard(this.username, this.fullname);
 }
 
 class _Dashboard extends State<DashboardPage> {
   final PushNotificationService _navigationService = PushNotificationService();
   final AddNotification _addNotification = new AddNotification();
-  final username;
+  final String username;
+  final String fullname;
   String _token = "Waiting for token...";
   int _bottomNavBarSelectedIndex = 0;
   bool _newNotification = false;
@@ -31,7 +33,7 @@ class _Dashboard extends State<DashboardPage> {
   List<DataKelas> _itemKelas = [];
   List<String> _list = [];
 
-  _Dashboard(this.username);
+  _Dashboard(this.username, this.fullname);
 
   @override
   void initState() {
@@ -53,7 +55,8 @@ class _Dashboard extends State<DashboardPage> {
     final List<Widget> _children = [
       HomePage(
         token: _token,
-        nama: this.username,
+        nama: fullname,
+        username: username,
       ),
       ScadulePage(item: _schadule),
       NotificationPage(item: _notif),
