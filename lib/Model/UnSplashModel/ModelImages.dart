@@ -1,55 +1,56 @@
 // To parse this JSON data, do
 //
-//     final modelImagas = modelImagasFromJson(jsonString);
+//     final modelImages = modelImagesFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<ModelImagas> modelImagasFromJson(String str) => List<ModelImagas>.from(json.decode(str).map((x) => ModelImagas.fromJson(x)));
+List<ModelImages> modelImagesFromJson(String str) => List<ModelImages>.from(json.decode(str).map((x) => ModelImages.fromJson(x)));
 
-String modelImagasToJson(List<ModelImagas> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String modelImagesToJson(List<ModelImages> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ModelImagas {
-  ModelImagas({
-    this.id,
-    this.createdAt,
-    this.updatedAt,
-    this.promotedAt,
-    this.width,
-    this.height,
-    this.color,
-    this.blurHash,
-    this.description,
-    this.altDescription,
-    this.urls,
-    this.links,
-    this.categories,
-    this.likes,
-    this.likedByUser,
-    this.currentUserCollections,
-    this.sponsorship,
-    this.user,
+class ModelImages {
+  ModelImages({
+    @required this.id,
+    @required this.createdAt,
+    @required this.updatedAt,
+    @required this.promotedAt,
+    @required this.width,
+    @required this.height,
+    @required this.color,
+    @required this.blurHash,
+    @required this.description,
+    @required this.altDescription,
+    @required this.urls,
+    @required this.links,
+    @required this.categories,
+    @required this.likes,
+    @required this.likedByUser,
+    @required this.currentUserCollections,
+    @required this.sponsorship,
+    @required this.user,
   });
 
-  String id;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime promotedAt;
-  int width;
-  int height;
-  String color;
-  String blurHash;
-  String description;
-  String altDescription;
-  Urls urls;
-  ModelImagasLinks links;
-  List<dynamic> categories;
-  int likes;
-  bool likedByUser;
-  List<dynamic> currentUserCollections;
-  Sponsorship sponsorship;
-  User user;
+  final String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime promotedAt;
+  final int width;
+  final int height;
+  final String color;
+  final String blurHash;
+  final String description;
+  final String altDescription;
+  final Urls urls;
+  final ModelImageLinks links;
+  final List<dynamic> categories;
+  final int likes;
+  final bool likedByUser;
+  final List<dynamic> currentUserCollections;
+  final Sponsorship sponsorship;
+  final User user;
 
-  factory ModelImagas.fromJson(Map<String, dynamic> json) => ModelImagas(
+  factory ModelImages.fromJson(Map<String, dynamic> json) => ModelImages(
     id: json["id"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
@@ -61,7 +62,7 @@ class ModelImagas {
     description: json["description"] == null ? null : json["description"],
     altDescription: json["alt_description"] == null ? null : json["alt_description"],
     urls: Urls.fromJson(json["urls"]),
-    links: ModelImagasLinks.fromJson(json["links"]),
+    links: ModelImageLinks.fromJson(json["links"]),
     categories: List<dynamic>.from(json["categories"].map((x) => x)),
     likes: json["likes"],
     likedByUser: json["liked_by_user"],
@@ -92,20 +93,20 @@ class ModelImagas {
   };
 }
 
-class ModelImagasLinks {
-  ModelImagasLinks({
-    this.self,
-    this.html,
-    this.download,
-    this.downloadLocation,
+class ModelImageLinks {
+  ModelImageLinks({
+    @required this.self,
+    @required this.html,
+    @required this.download,
+    @required this.downloadLocation,
   });
 
-  String self;
-  String html;
-  String download;
-  String downloadLocation;
+  final String self;
+  final String html;
+  final String download;
+  final String downloadLocation;
 
-  factory ModelImagasLinks.fromJson(Map<String, dynamic> json) => ModelImagasLinks(
+  factory ModelImageLinks.fromJson(Map<String, dynamic> json) => ModelImageLinks(
     self: json["self"],
     html: json["html"],
     download: json["download"],
@@ -122,16 +123,16 @@ class ModelImagasLinks {
 
 class Sponsorship {
   Sponsorship({
-    this.impressionUrls,
-    this.tagline,
-    this.taglineUrl,
-    this.sponsor,
+    @required this.impressionUrls,
+    @required this.tagline,
+    @required this.taglineUrl,
+    @required this.sponsor,
   });
 
-  List<String> impressionUrls;
-  String tagline;
-  String taglineUrl;
-  User sponsor;
+  final List<String> impressionUrls;
+  final String tagline;
+  final String taglineUrl;
+  final User sponsor;
 
   factory Sponsorship.fromJson(Map<String, dynamic> json) => Sponsorship(
     impressionUrls: List<String>.from(json["impression_urls"].map((x) => x)),
@@ -150,44 +151,44 @@ class Sponsorship {
 
 class User {
   User({
-    this.id,
-    this.updatedAt,
-    this.username,
-    this.name,
-    this.firstName,
-    this.lastName,
-    this.twitterUsername,
-    this.portfolioUrl,
-    this.bio,
-    this.location,
-    this.links,
-    this.profileImage,
-    this.instagramUsername,
-    this.totalCollections,
-    this.totalLikes,
-    this.totalPhotos,
-    this.acceptedTos,
-    this.forHire,
+    @required this.id,
+    @required this.updatedAt,
+    @required this.username,
+    @required this.name,
+    @required this.firstName,
+    @required this.lastName,
+    @required this.twitterUsername,
+    @required this.portfolioUrl,
+    @required this.bio,
+    @required this.location,
+    @required this.links,
+    @required this.profileImage,
+    @required this.instagramUsername,
+    @required this.totalCollections,
+    @required this.totalLikes,
+    @required this.totalPhotos,
+    @required this.acceptedTos,
+    @required this.forHire,
   });
 
-  String id;
-  DateTime updatedAt;
-  String username;
-  String name;
-  String firstName;
-  String lastName;
-  String twitterUsername;
-  String portfolioUrl;
-  String bio;
-  String location;
-  UserLinks links;
-  ProfileImage profileImage;
-  String instagramUsername;
-  int totalCollections;
-  int totalLikes;
-  int totalPhotos;
-  bool acceptedTos;
-  bool forHire;
+  final String id;
+  final DateTime updatedAt;
+  final String username;
+  final String name;
+  final String firstName;
+  final String lastName;
+  final String twitterUsername;
+  final String portfolioUrl;
+  final String bio;
+  final String location;
+  final UserLinks links;
+  final ProfileImage profileImage;
+  final String instagramUsername;
+  final int totalCollections;
+  final int totalLikes;
+  final int totalPhotos;
+  final bool acceptedTos;
+  final bool forHire;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     id: json["id"],
@@ -234,22 +235,22 @@ class User {
 
 class UserLinks {
   UserLinks({
-    this.self,
-    this.html,
-    this.photos,
-    this.likes,
-    this.portfolio,
-    this.following,
-    this.followers,
+    @required this.self,
+    @required this.html,
+    @required this.photos,
+    @required this.likes,
+    @required this.portfolio,
+    @required this.following,
+    @required this.followers,
   });
 
-  String self;
-  String html;
-  String photos;
-  String likes;
-  String portfolio;
-  String following;
-  String followers;
+  final String self;
+  final String html;
+  final String photos;
+  final String likes;
+  final String portfolio;
+  final String following;
+  final String followers;
 
   factory UserLinks.fromJson(Map<String, dynamic> json) => UserLinks(
     self: json["self"],
@@ -274,14 +275,14 @@ class UserLinks {
 
 class ProfileImage {
   ProfileImage({
-    this.small,
-    this.medium,
-    this.large,
+    @required this.small,
+    @required this.medium,
+    @required this.large,
   });
 
-  String small;
-  String medium;
-  String large;
+  final String small;
+  final String medium;
+  final String large;
 
   factory ProfileImage.fromJson(Map<String, dynamic> json) => ProfileImage(
     small: json["small"],
@@ -298,18 +299,18 @@ class ProfileImage {
 
 class Urls {
   Urls({
-    this.raw,
-    this.full,
-    this.regular,
-    this.small,
-    this.thumb,
+    @required this.raw,
+    @required this.full,
+    @required this.regular,
+    @required this.small,
+    @required this.thumb,
   });
 
-  String raw;
-  String full;
-  String regular;
-  String small;
-  String thumb;
+  final String raw;
+  final String full;
+  final String regular;
+  final String small;
+  final String thumb;
 
   factory Urls.fromJson(Map<String, dynamic> json) => Urls(
     raw: json["raw"],

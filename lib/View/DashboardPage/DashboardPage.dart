@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:modul3/Model/KelasModel/Kelas.dart';
 import 'package:modul3/Model/KelasModel/Notif.dart';
 import 'package:modul3/Model/KelasModel/Scadule.dart';
+import 'package:modul3/Provider/ProviderHomePage.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
 import 'package:modul3/View/component/AddNotification.dart';
+import 'package:modul3/View/component/indecatorLoad.dart';
+import 'package:provider/provider.dart';
 
 import 'HomePage/HomePage.dart';
 import 'NotificationPage/NotificationPage.dart';
@@ -53,10 +56,24 @@ class _Dashboard extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
-      HomePage(
-        token: _token,
-        nama: fullname,
-        username: username,
+      FutureBuilder(
+        future: Future.wait([
+          Provider.of<ProviderHomePage>(context, listen: false).getDataImages(),
+        ]),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Scaffold(
+              body: indicatorLoad(),
+            );
+          }
+          return Consumer<ProviderHomePage>(
+            builder: (snapshot, dataHomePage, _) {
+              return HomePage(
+                dataHompage: dataHomePage.dataHomePage,
+              );
+            },
+          );
+        },
       ),
       ScadulePage(item: _schadule),
       NotificationPage(item: _notif),

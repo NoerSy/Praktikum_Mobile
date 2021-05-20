@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
+import 'package:modul3/Provider/ProviderHomePage.dart';
 import 'package:modul3/View/DashboardPage/DashboardPage.dart';
-import 'package:modul3/View/SplashScreenPage/SplashScreenPage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,13 +12,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return /*MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: DashboardPage(username: "username", fullname: ""),
-    );
+    );*/
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => ProviderHomePage(),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            body: DashboardPage(),
+          ),
+        ),
+      );
   }
 }

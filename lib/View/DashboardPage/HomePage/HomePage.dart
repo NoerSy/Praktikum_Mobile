@@ -1,28 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modul3/Model/UnSplashModel/ModelImages.dart';
+import 'package:modul3/Provider/ProviderHomePage.dart';
 import 'package:modul3/View/LoginPage/LoginPage.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  final String token;
-  final String nama;
-  final String username;
+  final List<ModelImages> dataHompage;
 
-  const HomePage({this.token, this.nama, this.username});
+  const HomePage({this.dataHompage});
 
   @override
-  _HomePageState createState() =>
-      _HomePageState(this.token, this.nama, this.username);
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final String _token;
-  final String name;
-  final String username;
-
-  _HomePageState(this._token, this.name, this.username);
-
   clearPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("isLogined", false);
@@ -66,67 +59,58 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Card(
-                  child: Container(
-                margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+        child: GridView.builder(
+          itemCount: widget.dataHompage.length,
+          itemBuilder: (context, _) {
+            return Padding(
+              padding: const EdgeInsets.all(1),
+              child: Container(
+                height: 250,
+                child: Stack(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      child: Text(
-                        username,
-                        style: TextStyle(fontSize: 18),
+                    Card(
+                      child: Image.network(
+                        widget.dataHompage[_].urls.regular,
+                        fit: BoxFit.cover,
+                        height: 200,
+                        width: 200,
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.all(4),
-                      child: Text(
-                        name,
-                        style: TextStyle(fontSize: 18),
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.dataHompage[_].user.firstName,
+                          style: TextStyle(fontSize: 12, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(2),
+                              child: Icon(Icons.thumb_up_alt_outlined, size: 12, color: Colors.white,),
+                            ),
+                            Text(
+                              widget.dataHompage[_].likes.toString(),
+                              style: TextStyle(fontSize: 12, color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
-              )),
-            ),
-            GridView(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 5.0,
-                mainAxisSpacing: 5.0,
               ),
-              children: [
-                Card(
-                  child: Center(
-                    child: Text("Text"),
-                  ),
-                ),
-                Card(
-                  child: Center(
-                    child: Text("Text"),
-                  ),
-                ),
-                Card(
-                  child: Center(
-                    child: Text("Text"),
-                  ),
-                ),
-                Card(
-                  child: Center(
-                    child: Text("Text"),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            );
+          },
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         ),
       ),
     );
