@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modul3/Provider/BookChaptersProvider.dart';
 import 'package:modul3/Provider/BooksProviders.dart';
+import 'package:modul3/Provider/CharactersProvider.dart';
 import 'package:modul3/View/DashboardPage/DashboardPage.dart';
 import 'package:modul3/View/SplashScreenPage/SplashScreenPage.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => CharactersProvider(),
+        ),
         ChangeNotifierProvider(
           create: (_) => BookChaptersProvider(),
         ),

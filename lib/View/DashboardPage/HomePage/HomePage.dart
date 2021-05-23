@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modul3/View/DashboardPage/HomePage/BooksPage/BooksPage.dart';
+import 'package:modul3/View/DashboardPage/HomePage/CharactersPage/CharactersPage.dart';
 import 'package:modul3/View/LoginPage/LoginPage.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
@@ -59,16 +60,16 @@ class _HomePageState extends State<HomePage> {
               Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                          'https://cdn.wallpapersafari.com/60/17/0FwhAx.jpg',
-                      ),
-                      fit: BoxFit.cover,
-                    )
-                ),
+                  image: NetworkImage(
+                    'https://cdn.wallpapersafari.com/60/17/0FwhAx.jpg',
+                  ),
+                  fit: BoxFit.cover,
+                )),
                 child: Container(
                   alignment: Alignment.center,
                   color: PaletteColor.black.withOpacity(0.5),
-                  padding: const EdgeInsets.only(left: 18, right: 18, top: 18, bottom: 24),
+                  padding: const EdgeInsets.only(
+                      left: 18, right: 18, top: 18, bottom: 24),
                   width: MediaQuery.of(context).size.width,
                   height: 230,
                   child: Text(
@@ -106,13 +107,13 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16, top: 4, bottom: 4),
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, top: 4, bottom: 4),
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: "Search",
                         suffixIcon: GestureDetector(
-                          onTap: (){
-                          },
+                          onTap: () {},
                           child: Icon(Icons.search),
                         ),
                         suffixIconConstraints: BoxConstraints(),
@@ -132,17 +133,18 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               children: [
                 cardView(
-                    title: 'Books',
-                    icon: Icon(
-                      Icons.book_online_rounded,
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => BooksPage(),
-                        ),
-                      );
-                    }),
+                  title: 'Books',
+                  icon: Icon(
+                    Icons.book_online_rounded,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => BooksPage(),
+                      ),
+                    );
+                  },
+                ),
                 cardView(
                   title: 'Movies',
                   icon: Icon(
@@ -154,19 +156,27 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(
                     Icons.people,
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CharactersPage(),
+                      ),
+                    );
+                  },
                 ),
                 cardView(
-                  title: 'Quests',
+                  title: 'Quotes',
                   icon: Icon(
                     Icons.wb_incandescent_outlined,
                   ),
                 ),
               ],
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
-                  childAspectRatio: 4 / 2),
+                crossAxisCount: 2,
+                crossAxisSpacing: 4.0,
+                mainAxisSpacing: 4.0,
+                childAspectRatio: 4 / 2,
+              ),
             ),
           ),
 

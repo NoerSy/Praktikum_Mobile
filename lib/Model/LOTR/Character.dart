@@ -1,17 +1,16 @@
-
 // To parse this JSON data, do
 //
-//     final characters = charactersFromJson(jsonString);
+//     final bookCharacters = bookCharactersFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-Characters charactersFromJson(String str) => Characters.fromJson(json.decode(str));
+BookCharacters bookCharactersFromJson(String str) => BookCharacters.fromJson(json.decode(str));
 
-String charactersToJson(Characters data) => json.encode(data.toJson());
+String bookCharactersToJson(BookCharacters data) => json.encode(data.toJson());
 
-class Characters {
-  Characters({
+class BookCharacters {
+  BookCharacters({
     @required this.docs,
     @required this.total,
     @required this.limit,
@@ -27,7 +26,7 @@ class Characters {
   final int page;
   final int pages;
 
-  factory Characters.fromJson(Map<String, dynamic> json) => Characters(
+  factory BookCharacters.fromJson(Map<String, dynamic> json) => BookCharacters(
     docs: List<Doc>.from(json["docs"].map((x) => Doc.fromJson(x))),
     total: json["total"],
     limit: json["limit"],
