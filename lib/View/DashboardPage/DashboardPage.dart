@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modul3/Model/KelasModel/Kelas.dart';
 import 'package:modul3/Model/KelasModel/Notif.dart';
 import 'package:modul3/Model/KelasModel/Scadule.dart';
-import 'package:modul3/Provider/ProviderHomePage.dart';
 import 'package:modul3/Service/PushNotificationService.dart';
 import 'package:modul3/View/component/AddNotification.dart';
 import 'package:modul3/View/component/indecatorLoad.dart';
+import 'package:modul3/thame/PaletteColor.dart';
 import 'package:provider/provider.dart';
 
 import 'HomePage/HomePage.dart';
@@ -40,7 +41,6 @@ class _Dashboard extends State<DashboardPage> {
 
   @override
   void initState() {
-    super.initState();
     _navigationService.initialise(
       handlerNotification: _handlerNotification,
       handlerScadule: _handlerScadule,
@@ -51,36 +51,29 @@ class _Dashboard extends State<DashboardPage> {
       });
     });
     print(_token);
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    super.initState();
   }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
-      FutureBuilder(
-        future: Future.wait([
-          Provider.of<ProviderHomePage>(context, listen: false).getDataImages(),
-        ]),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: indicatorLoad(),
-            );
-          }
-          return Consumer<ProviderHomePage>(
-            builder: (snapshot, dataHomePage, _) {
-              return HomePage(
-                dataHompage: dataHomePage.dataHomePage,
-              );
-            },
-          );
-        },
-      ),
+      HomePage(),
       ScadulePage(item: _schadule),
       NotificationPage(item: _notif),
     ];
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
+          backgroundColor: PaletteColor.primarybg2,
           onPressed: () {
             _addNotification.addNotificationPopUp(
                 context: context, token: _token);
@@ -88,7 +81,7 @@ class _Dashboard extends State<DashboardPage> {
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.add),
+            child: Icon(Icons.add, color: PaletteColor.black,),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(

@@ -24,9 +24,9 @@ class _ScadulePageState extends State<ScadulePage> {
     return Scaffold(
       backgroundColor: PaletteColor.primarybg2,
       appBar: AppBar(
-        backgroundColor: PaletteColor.primary,
-        title: Text("Jadwal Praktikum"),
-        elevation: 0,
+        backgroundColor: PaletteColor.primarybg2,
+        title: Text("Jadwal Praktikum", style: TypographyStyle.subtitle1,),
+        elevation: 1,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(12),

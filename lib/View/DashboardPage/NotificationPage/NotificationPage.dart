@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modul3/Model/KelasModel/Notif.dart';
 import 'package:modul3/thame/PaletteColor.dart';
+import 'package:modul3/thame/TypographyStyle.dart';
 
 class NotificationPage extends StatefulWidget {
   final List<Notif> item;
@@ -21,9 +22,9 @@ class _NotificationPageState extends State<NotificationPage> {
     return Scaffold(
       backgroundColor: PaletteColor.primarybg2,
       appBar: AppBar(
-        backgroundColor: PaletteColor.primary,
-        title: Text("Notification"),
-        elevation: 2,
+        backgroundColor: PaletteColor.primarybg2,
+        title: Text("Notification", style: TypographyStyle.subtitle1,),
+        elevation: 1,
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 8),

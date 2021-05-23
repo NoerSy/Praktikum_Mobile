@@ -34,5 +34,4 @@ class NotificationProvider extends ChangeNotifier {
       return false;
     }
   }
-
 }

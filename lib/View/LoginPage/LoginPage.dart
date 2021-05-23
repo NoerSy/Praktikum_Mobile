@@ -6,6 +6,7 @@ import 'package:modul3/config/GlobalKeySharedPref.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unsplash_client/unsplash_client.dart';
 
 import 'component/ButtonLogin.dart';
 import 'component/MainForms.dart';
@@ -118,23 +119,32 @@ class _LoginPageState extends State<LoginPage> {
     //   }
     // }
 
-    dataAssisten.forEach((element) {
-      if (_nimController.text == element["UserName"] &&
-          _passwordController.text == element["PassWord"]) {
+    //dataAssisten.forEach((element) {
+      if (/*_nimController.text == element["UserName"] &&
+          _passwordController.text == element["PassWord"])*/true) {
         isLogin = true;
-        print(element);
+        //print(element);
+        //
+        // final client = UnsplashClient(
+        //   settings: ClientSettings(credentials: AppCredentials(
+        //     accessKey: 'MwejgIiPWDV8gXCSEfoWNhVUu08hVI-EqCDgZ4d5SMA',
+        //     secretKey: 'uXZzreJK5aUH7_106V2GCjJx9SvU577ebcZpyILp7n0',
+        //   )),
+        // );
+
+        //print(client.users.get("me"));
 
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DashboardPage(
-              fullname: element["FullName"],
-              username: element["UserName"],
+              fullname: " ",//element["FullName"],
+              username: " ",//element["UserName"],
             ),
           ),
         );
-        savePrefFungsion(element["FullName"]);
+        //savePrefFungsion(element["FullName"]);
       }
-    });
+    //});
 
     if (!isLogin)
       showDialog(
