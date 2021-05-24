@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:modul3/View/DashboardPage/HomePage/BooksPage/BooksPage.dart';
 import 'package:modul3/View/DashboardPage/HomePage/CharactersPage/CharactersPage.dart';
+import 'package:modul3/View/DashboardPage/HomePage/MoviesPage/MoviesPage.dart';
+import 'package:modul3/View/DashboardPage/HomePage/QuotesPage/QuotesPage.dart';
 import 'package:modul3/View/LoginPage/LoginPage.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
@@ -150,6 +152,13 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(
                     Icons.movie_outlined,
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MoviesPage(),
+                      ),
+                    );
+                  },
                 ),
                 cardView(
                   title: 'Characters',
@@ -169,6 +178,13 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(
                     Icons.wb_incandescent_outlined,
                   ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => QuotePage(),
+                      ),
+                    );
+                  },
                 ),
               ],
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

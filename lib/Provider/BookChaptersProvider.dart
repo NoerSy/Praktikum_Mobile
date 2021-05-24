@@ -16,6 +16,7 @@ class BookChaptersProvider extends ChangeNotifier{
       return chaptersFromJson(response.body);
     } catch (e) {
       print(e);
+      return null;
     }
   }
 }
