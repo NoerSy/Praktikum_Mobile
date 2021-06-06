@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'HomePage/HomePage.dart';
 import 'NotificationPage/NotificationPage.dart';
 import 'SchadulePage/SchadulePage.dart';
+import 'UserBottomSheetFialog/UserBottomSheetDialog.dart';
 
 class DashboardPage extends StatefulWidget {
   final String username;
@@ -62,17 +63,16 @@ class _Dashboard extends State<DashboardPage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       HomePage(),
-      ScadulePage(item: _schadule),
-      NotificationPage(item: _notif),
+      //ScadulePage(item: _schadule),
+      //NotificationPage(item: _notif),
     ];
 
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
+        /* floatingActionButton: FloatingActionButton(
           backgroundColor: PaletteColor.primarybg2,
           onPressed: () {
             _addNotification.addNotificationPopUp(
@@ -83,7 +83,7 @@ class _Dashboard extends State<DashboardPage> {
             padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.add, color: PaletteColor.black,),
           ),
-        ),
+        ),*/
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
@@ -91,30 +91,8 @@ class _Dashboard extends State<DashboardPage> {
               title: Text('Home'),
             ),
             BottomNavigationBarItem(
-              icon: _newSchedule
-                  ? Icon(Icons.schedule, color: Colors.pink)
-                  : Icon(
-                      Icons.schedule,
-                    ),
-              title: _newSchedule
-                  ? Text(
-                      'Schedule',
-                      style: TextStyle(color: Colors.pink),
-                    )
-                  : Text('Schedule'),
-            ),
-            BottomNavigationBarItem(
-              icon: _newNotification
-                  ? Icon(Icons.notifications_active, color: Colors.pink)
-                  : Icon(
-                      Icons.notifications,
-                    ),
-              title: _newNotification
-                  ? Text(
-                      'Notifications',
-                      style: TextStyle(color: Colors.pink),
-                    )
-                  : Text('Notifications'),
+              icon: Icon(Icons.person),
+              title: Text('Notifications'),
             ),
           ],
           currentIndex: _bottomNavBarSelectedIndex,
@@ -122,6 +100,28 @@ class _Dashboard extends State<DashboardPage> {
           onTap: _onItemTapped,
         ),
         body: _children[_bottomNavBarSelectedIndex]);
+  }
+
+  _onItemTapped(index) {
+    if (index != _bottomNavBarSelectedIndex) {
+      /*if (index != 3) {
+        setState(() {
+          if (index == 2) {
+            _newNotification = false;
+          }
+          if (index == 1) {
+            _newSchedule = false;
+          }
+          _bottomNavBarSelectedIndex = index;
+        });*/
+
+      if (index == 1)
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) =>
+              UserBottomSheetDialog(ctx: context),
+        );
+    }
   }
 
   void _handlerScadule(Schedule item) {
@@ -156,45 +156,5 @@ class _Dashboard extends State<DashboardPage> {
       _newNotification = _bottomNavBarSelectedIndex == 2 ? false : true;
       _notif.add(notif);
     });
-  }
-
-  _onItemTapped(index) {
-    if (index != _bottomNavBarSelectedIndex) {
-      if (index != 3) {
-        setState(() {
-          if (index == 2) {
-            _newNotification = false;
-          }
-          if (index == 1) {
-            _newSchedule = false;
-          }
-          _bottomNavBarSelectedIndex = index;
-        });
-      }
-    }
-  }
-
-  Widget TokenPage() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                "Token : ",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            Text(
-              _token,
-              style: TextStyle(fontSize: 11, color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

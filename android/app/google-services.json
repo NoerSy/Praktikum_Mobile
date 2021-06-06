@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:845725853387:android:21d70e0ded596160c09d4e",
+        "mobilesdk_app_id": "1:845725853387:android:639516e0e2be720fc09d4e",
         "android_client_info": {
-          "package_name": "id.umm.modul3"
+          "package_name": "id.umm.mobilemd"
         }
       },
       "oauth_client": [

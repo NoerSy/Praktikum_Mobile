@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="id.umm.modul3">
+    package="id.umm.mobilemd">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
        android:name=".Aplication"
-       android:label="modul3"
+       android:label="mobilemd"
        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
