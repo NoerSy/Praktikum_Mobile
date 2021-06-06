@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:modul3/Model/KelasModel/Kelas.dart';
-import 'package:modul3/Model/KelasModel/Notif.dart';
-import 'package:modul3/Model/KelasModel/Scadule.dart';
-import 'package:modul3/Service/PushNotificationService.dart';
 import 'package:modul3/View/component/AddNotification.dart';
 import 'package:modul3/View/component/indecatorLoad.dart';
+import 'package:modul3/model/KelasModel/Kelas.dart';
+import 'package:modul3/model/KelasModel/Notif.dart';
+import 'package:modul3/model/KelasModel/Scadule.dart';
+import 'package:modul3/service/PushNotificationService.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:provider/provider.dart';
 
 import 'HomePage/HomePage.dart';
-import 'NotificationPage/NotificationPage.dart';
-import 'SchadulePage/SchadulePage.dart';
 import 'UserBottomSheetFialog/UserBottomSheetDialog.dart';
 
 class DashboardPage extends StatefulWidget {

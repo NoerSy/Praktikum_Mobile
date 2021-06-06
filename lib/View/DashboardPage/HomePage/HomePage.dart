@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modul3/View/DashboardPage/HomePage/ConsolePage/ConsolePage.dart';
 import 'package:modul3/View/LoginPage/LoginPage.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
@@ -20,7 +21,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final pageViewController = PageController();
-    final scaffoldKey = GlobalKey<ScaffoldState>();
 
     return SafeArea(
       child: Scaffold(
@@ -98,8 +98,18 @@ class _HomePageState extends State<HomePage> {
                 child: GridView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    cardView(title: 'Console', icon: Icon(Icons.videogame_asset_outlined)),
-                    cardView(title: 'Current', icon: Icon(Icons.shopping_cart_outlined))
+                    cardView(
+                      title: 'Console',
+                      icon: Icon(Icons.videogame_asset_outlined),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context)=> ConsolePage())
+                        );
+                      },
+                    ),
+                    cardView(
+                        title: 'Current',
+                        icon: Icon(Icons.shopping_cart_outlined))
                   ],
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -110,15 +120,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 8, bottom: 2),
+                padding: const EdgeInsets.only(
+                    left: 24, right: 24, top: 8, bottom: 2),
                 child: SizedBox(
                   height: 20,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("data"),
-                      SizedBox()
-                    ],
+                    children: [Text("data"), SizedBox()],
                   ),
                 ),
               ),
@@ -129,10 +137,9 @@ class _HomePageState extends State<HomePage> {
                     physics: BouncingScrollPhysics(),
                     children: [
                       Card(
-                        child: ListTile(
-                          title: Text("Test"),
-                        )
-                      ),
+                          child: ListTile(
+                        title: Text("Test"),
+                      )),
                     ],
                   ),
                 ),

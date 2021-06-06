@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modul3/Model/KelasModel/Notif.dart';
+import 'package:modul3/model/KelasModel/Notif.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';
 
