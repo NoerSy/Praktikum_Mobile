@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modul3/View/DashboardPage/DashboardPage.dart';
+import 'package:modul3/View/LoginPage/component/AuthLogin.dart';
 import 'package:modul3/View/component/indecatorLoad.dart';
 import 'package:modul3/config/GlobalKeySharedPref.dart';
 import 'package:modul3/thame/PaletteColor.dart';
@@ -94,9 +95,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void onPressedFunction() async {
+
     setState(() {
       isLoading = true;
     });
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await AuthLogin.auth(username: _nimController.text, password: _passwordController.text);
 
     setState(() {
       isLoading = false;
@@ -104,35 +109,8 @@ class _LoginPageState extends State<LoginPage> {
 
     bool isLogin = false;
 
-    // for(Map temp in dataAssisten){
-    //   if(temp["UserName"] == _nimController.text && temp["PassWord"] == _passwordController.text){
-    //     Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(
-    //         builder: (context) => DashboardPage(
-    //           fullname: temp["FullName"],
-    //           username: temp["UserName"],
-    //         ),
-    //       ),
-    //     );
-    //     savePrefFungsion(temp["FullName"]);
-    //   }
-    // }
-
-    //dataAssisten.forEach((element) {
-      if (/*_nimController.text == element["UserName"] &&
-          _passwordController.text == element["PassWord"])*/true) {
+      if (prefs.getBool("is_login") ?? false) {
         isLogin = true;
-        //print(element);
-        //
-        // final client = UnsplashClient(
-        //   settings: ClientSettings(credentials: AppCredentials(
-        //     accessKey: 'MwejgIiPWDV8gXCSEfoWNhVUu08hVI-EqCDgZ4d5SMA',
-        //     secretKey: 'uXZzreJK5aUH7_106V2GCjJx9SvU577ebcZpyILp7n0',
-        //   )),
-        // );
-
-        //print(client.users.get("me"));
-
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DashboardPage(
@@ -143,7 +121,6 @@ class _LoginPageState extends State<LoginPage> {
         );
         //savePrefFungsion(element["FullName"]);
       }
-    //});
 
     if (!isLogin)
       showDialog(

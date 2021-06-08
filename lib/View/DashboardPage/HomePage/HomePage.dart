@@ -92,36 +92,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 12, right: 12),
-                height: 70,
-                child: GridView(
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    cardView(
-                      title: 'Console',
-                      icon: Icon(Icons.videogame_asset_outlined),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context)=> ConsolePage())
-                        );
-                      },
-                    ),
-                    cardView(
-                        title: 'Current',
-                        icon: Icon(Icons.shopping_cart_outlined))
-                  ],
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 2,
-                    childAspectRatio: 5 / 2,
-                  ),
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 24, right: 24, top: 8, bottom: 2),
+                    left: 24, right: 24, bottom: 2),
                 child: SizedBox(
                   height: 20,
                   child: Row(
@@ -137,9 +110,10 @@ class _HomePageState extends State<HomePage> {
                     physics: BouncingScrollPhysics(),
                     children: [
                       Card(
-                          child: ListTile(
-                        title: Text("Test"),
-                      )),
+                        child: ListTile(
+                          title: Text("Test"),
+                        ),
+                      ),
                     ],
                   ),
                 ),

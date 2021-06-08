@@ -9,6 +9,7 @@ import 'package:modul3/service/PushNotificationService.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:provider/provider.dart';
 
+import 'HomePage/ConsolePage/ConsolePage.dart';
 import 'HomePage/HomePage.dart';
 import 'UserBottomSheetFialog/UserBottomSheetDialog.dart';
 
@@ -65,12 +66,12 @@ class _Dashboard extends State<DashboardPage> {
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       HomePage(),
-      //ScadulePage(item: _schadule),
+      ConsolePage(),
       //NotificationPage(item: _notif),
     ];
 
     return Scaffold(
-        /* floatingActionButton: FloatingActionButton(
+      /* floatingActionButton: FloatingActionButton(
           backgroundColor: PaletteColor.primarybg2,
           onPressed: () {
             _addNotification.addNotificationPopUp(
@@ -82,27 +83,31 @@ class _Dashboard extends State<DashboardPage> {
             child: Icon(Icons.add, color: PaletteColor.black,),
           ),
         ),*/
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Notifications'),
-            ),
-          ],
-          currentIndex: _bottomNavBarSelectedIndex,
-          selectedItemColor: Colors.green,
-          onTap: _onItemTapped,
-        ),
-        body: _children[_bottomNavBarSelectedIndex]);
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.videogame_asset_outlined),
+            title: Text('Console'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Profile'),
+          ),
+        ],
+        currentIndex: _bottomNavBarSelectedIndex,
+        selectedItemColor: Colors.green,
+        onTap: _onItemTapped,
+      ),
+      body: _children[_bottomNavBarSelectedIndex],);
   }
 
   _onItemTapped(index) {
     if (index != _bottomNavBarSelectedIndex) {
-      /*if (index != 3) {
+      if (index != 2) {
         setState(() {
           if (index == 2) {
             _newNotification = false;
@@ -111,9 +116,9 @@ class _Dashboard extends State<DashboardPage> {
             _newSchedule = false;
           }
           _bottomNavBarSelectedIndex = index;
-        });*/
-
-      if (index == 1)
+        });
+      }
+      if (index == 2)
         showModalBottomSheet(
           context: context,
           builder: (BuildContext context) =>
@@ -121,6 +126,7 @@ class _Dashboard extends State<DashboardPage> {
         );
     }
   }
+
 
   void _handlerScadule(Schedule item) {
     print("schedule yes : " + item.toJson().toString());

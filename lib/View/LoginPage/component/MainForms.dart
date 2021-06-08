@@ -32,7 +32,7 @@ class _MainFormsState extends State<MainForms> {
           Container(
             alignment: Alignment.bottomLeft,
             child: Text(
-              "Username",
+              "Email",
               style: TypographyStyle.mini.merge(
                 TextStyle(
                   color: PaletteColor.grey60,
@@ -43,17 +43,14 @@ class _MainFormsState extends State<MainForms> {
           TextFormField(
             controller: widget.nimFilter,
             cursorColor: PaletteColor.primary,
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ],
+            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(
                 left: 16,
                 top: 8,
                 bottom: 8,
               ),
-              hintText: "Enter Username",
+              hintText: "Enter Email",
               hintStyle: TypographyStyle.paragraph.merge(
                 TextStyle(
                   color: PaletteColor.grey60,
