@@ -61,15 +61,13 @@ class _SplashScreenState extends State<SplashScreenPage> {
 
   loadPrefFungsion() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool temp = (prefs.getBool(GlobalKeySharedPref.keyPrefIsLogin) != null)
-        ? prefs.getBool(GlobalKeySharedPref.keyPrefIsLogin)
-        : false;
+    bool temp = prefs.getBool("is_login") ??  false;
     if (temp) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => DashboardPage(
-            fullname: prefs.getString(GlobalKeySharedPref.keyPrefFullname),
-            username: prefs.getString(GlobalKeySharedPref.keyPrefUsername),
+            fullname: " ",
+            username: " ",
           ),
         ),
       );

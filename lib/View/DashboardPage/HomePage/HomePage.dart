@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modul3/View/DashboardPage/HomePage/ConsolePage/ConsolePage.dart';
+import 'package:modul3/View/DashboardPage/ConsolePage/ConsolePage.dart';
 import 'package:modul3/View/LoginPage/LoginPage.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:modul3/thame/TypographyStyle.dart';

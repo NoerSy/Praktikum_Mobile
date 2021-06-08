@@ -9,7 +9,7 @@ import 'package:modul3/service/PushNotificationService.dart';
 import 'package:modul3/thame/PaletteColor.dart';
 import 'package:provider/provider.dart';
 
-import 'HomePage/ConsolePage/ConsolePage.dart';
+import 'ConsolePage/ConsolePage.dart';
 import 'HomePage/HomePage.dart';
 import 'UserBottomSheetFialog/UserBottomSheetDialog.dart';
 

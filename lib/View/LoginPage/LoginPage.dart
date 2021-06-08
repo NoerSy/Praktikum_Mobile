@@ -87,20 +87,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  savePrefFungsion(String nama) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(GlobalKeySharedPref.keyPrefIsLogin, true);
-    prefs.setString(GlobalKeySharedPref.keyPrefUsername, _nimController.text);
-    prefs.setString(GlobalKeySharedPref.keyPrefFullname, nama);
-  }
-
   void onPressedFunction() async {
 
     setState(() {
       isLoading = true;
     });
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isLogin = await AuthLogin.auth(username: _nimController.text, password: _passwordController.text);
 
     setState(() {

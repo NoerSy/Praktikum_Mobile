@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modul3/View/SplashScreenPage/SplashScreenPage.dart';
 import 'package:modul3/provider/ConsoleProvider.dart';
+import 'package:modul3/provider/ProfileProvider.dart';
 import 'package:provider/provider.dart';
 void main() {
   runApp(MyApp());
@@ -14,6 +15,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => ConsoleProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProfileProvider(),
         ),
       ],
       child: MaterialApp(
