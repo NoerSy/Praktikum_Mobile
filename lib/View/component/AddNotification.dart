@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modul3/Provider/NotificationProvider.dart';
+import 'package:modul3/provider/NotificationProvider.dart';
 
 class AddNotification {
   final TextEditingController _judul = new TextEditingController();

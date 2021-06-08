@@ -20,9 +20,10 @@ class AuthLogin{
       if(data["access_token"] != null){
         pref.setString("auth_token", data["access_token"]);
         pref.setBool("is_login", true);
+        return true;
       }
 
-      return true;
+      return false;
     } catch (e) {
       print(e);
       return false;

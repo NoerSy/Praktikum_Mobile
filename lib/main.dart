@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:modul3/Provider/ConsoleProvider.dart';
 import 'package:modul3/View/SplashScreenPage/SplashScreenPage.dart';
+import 'package:modul3/provider/ConsoleProvider.dart';
 import 'package:provider/provider.dart';
 void main() {
   runApp(MyApp());

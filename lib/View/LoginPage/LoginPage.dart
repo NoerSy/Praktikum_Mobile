@@ -101,16 +101,13 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await AuthLogin.auth(username: _nimController.text, password: _passwordController.text);
+    bool isLogin = await AuthLogin.auth(username: _nimController.text, password: _passwordController.text);
 
     setState(() {
       isLoading = false;
     });
 
-    bool isLogin = false;
-
-      if (prefs.getBool("is_login") ?? false) {
-        isLogin = true;
+      if (isLogin) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DashboardPage(
